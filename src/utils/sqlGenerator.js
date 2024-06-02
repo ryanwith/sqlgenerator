@@ -1,40 +1,40 @@
-export const generateAllStatements = (data, table_name = 'table_name', column_type = 'TEXT', temp_table = true, batch_size) => {
+export const generateAllStatements = (data, tableName, columnType, tableType, batchSize) => {
   return [
-    generateCreateTableSQL(data[0], table_name, column_type, temp_table),
-    generateInsertStatements(data, table_name, batch_size)
+    generateCreateTableSQL(data[0], tableName, columnType, tableType),
+    generateInsertStatements(data, tableName, batchSize)
   ].flat()
 }
 
-export const generateCreateTableSQL = (headers, table_name, column_type, temp_table) => {
-  const columns = headers.map((header) => `${header} ${column_type}`).join(', ');
-  return `CREATE ${temp_table = true ? "TEMP " : null}TABLE ${table_name} (${columns});`;
+export const generateCreateTableSQL = (headers, tableName, columnType, tableType) => {
+  const columns = headers.map((header) => `${header} ${columnType}`).join(', ');
+  return `CREATE ${tableType = 'TEMP' ? "TEMP " : null}TABLE ${tableName} (${columns});`;
 };
 
-export const generateInsertStatements = (data, table_name, batch_size) => {
+export const generateInsertStatements = (data, tableName, batchSize) => {
   const headers = data[0];
   const rows = data.slice(1);
   console.log(rows.length);
-  const insertIntoClause = generateInsertIntoClause(table_name);
-  const insertStatements = rows.map((row, row_number) => {
+  const insertIntoClause = generateInsertIntoClause(tableName);
+  const insertStatements = rows.map((row, rowNumber) => {
     const values = row.map((value) => `'${value}'`).join(', ');
 
-    return generateValuesStatement(insertIntoClause, values, rows.length, row_number, batch_size)
+    return generateValuesStatement(insertIntoClause, values, rows.length, rowNumber, batchSize)
   });
   return insertStatements.join('');
 };
 
-export const generateInsertIntoClause = (table_name) => {
-  return `INSERT INTO ${table_name} VALUES`
+export const generateInsertIntoClause = (tableName) => {
+  return `INSERT INTO ${tableName} VALUES`
 }
 
-export const generateValuesStatement = (insertIntoClause, values, total_rows, row_number, batch_size) => {
+export const generateValuesStatement = (insertIntoClause, values, totalRows, rowNumber, batchSize) => {
   let statement = '';
   // add the insertIntoClause on the first row if the batch size is not set
-  if(batch_size === undefined && row_number === 0){
+  if(batchSize === null && rowNumber === 0){
     statement = `${insertIntoClause}\n\t(${values})`
   } 
   // add the insertIntoClause on the first row of each batch if the batch size is set
-  else if(row_number%batch_size === 0){
+  else if(rowNumber%batchSize === 0){
     statement =  `${insertIntoClause}\n\t(${values})`
   } 
   // return just the values otherwise
@@ -42,8 +42,8 @@ export const generateValuesStatement = (insertIntoClause, values, total_rows, ro
     statement =  `\n\t(${values})`
   }
   
-  if(row_number === total_rows - 1 || 
-    (batch_size != undefined &&row_number % batch_size === batch_size - 1)
+  if(rowNumber === totalRows - 1 || 
+    (batchSize != null &&rowNumber % batchSize === batchSize - 1)
   ){    
     statement = statement + ';'
 

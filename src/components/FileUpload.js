@@ -23,7 +23,7 @@ function FileUpload({ onData }) {
   };
 
   return (
-    <div>
+    <div style={{ display: 'flex', width: '100%' }}>
       <input
         accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
         style={{ display: 'none' }}
@@ -31,12 +31,11 @@ function FileUpload({ onData }) {
         type="file"
         onChange={handleFileUpload}
       />
-      <label htmlFor="file-upload">
-        <Button variant="contained" component="span">
+      <label htmlFor="file-upload" style={{ flex: 1 }}>
+        <Button variant="contained" component="span" style={{ width: '100%' }}>
           Upload File
         </Button>
       </label>
-      {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </div>
   );
 }
