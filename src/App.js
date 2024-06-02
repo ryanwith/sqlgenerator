@@ -54,10 +54,10 @@ return (
   <Container>
     <h1>Excel to SQL</h1>
     <Grid container spacing={2}>
-      <Grid item xs="10">
+      <Grid item md={10} sm={9}>
           Easily convert and transform your excel, CSVs, TSVs, and other data files to SQL. Allows you to easily extract, transform, and load small amounts of data between data warehouses.
       </Grid>
-      <Grid item xs="auto">
+      <Grid item md={2} sm={3} style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
         <FileUpload onData={handleData} />
       </Grid>
       <Grid item xs={12}>
