@@ -36,24 +36,19 @@ function App() {
     }
   };
 
-
-
-
   useEffect(() => {
     if (fileData !== null && (fileData || tableName || columnType || tableType || batchSize !== null)) {
       const allStatements = generateAllStatements(fileData, tableName, columnType, tableType, batchSize);
-      const newSQL = allStatements.join();
+      const newSQL = allStatements.join("");
       setSQL(newSQL);
       setIsVisible(!!newSQL); // Show SQLDisplay if newSQL is not empty
     }
   }, [fileData, tableName, columnType, tableType, batchSize]);
 
-
-
 return (
   <Container>
     <h1>Excel to SQL</h1>
-    <Grid container spacing={2}>
+    <Grid container >
       <Grid item md={10} sm={9}>
           Easily convert and transform your excel, CSVs, TSVs, and other data files to SQL. Allows you to easily extract, transform, and load small amounts of data between data warehouses.
       </Grid>
