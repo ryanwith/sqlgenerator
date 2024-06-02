@@ -27,11 +27,6 @@ function App() {
     }
   }, [fileData, tableName, columnType, tableType, batchSize]);
 
-  const handleChange = (event) => {
-    setSQL(event.target.value);
-    setIsVisible(!!event.target.value); // Show SQLDisplay if there's content
-  };
-
   const handleTableTypeChange = (event) => {
     setTableType(event.target.value);
     // handleData(data, tableType)
@@ -66,20 +61,6 @@ return (
               <MenuItem value='PERM'>Permanent Table</MenuItem>
             </Select>
           </FormControl>
-          {/* <FormControl fullWidth margin="normal">
-            <TextField
-              label="Text Input"
-              variant="outlined"
-              value={sql}
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl fullWidth margin="normal">
-            <Button variant="contained" color="primary">
-              Submit
-            </Button>
-          </FormControl> */}
-          {/* {isVisible && <SQLDisplay sql={sql} onChange={handleChange} />} */}
         </Box>
       </Grid>
     </Grid>

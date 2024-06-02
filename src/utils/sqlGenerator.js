@@ -7,7 +7,10 @@ export const generateAllStatements = (data, tableName, columnType, tableType, ba
 
 export const generateCreateTableSQL = (headers, tableName, columnType, tableType) => {
   const columns = headers.map((header) => `${header} ${columnType}`).join(', ');
-  return `CREATE ${tableType = 'TEMP' ? "TEMP " : null}TABLE ${tableName} (${columns});`;
+  console.log(`generateCreateTableSQL tableType = ${tableType}`)
+  const createTableSQL = `CREATE ${tableType === 'TEMP' ? "TEMP " : ""}TABLE ${tableName} (${columns});`;
+  console.log(`SQL: ${createTableSQL}`)
+  return createTableSQL;
 };
 
 export const generateInsertStatements = (data, tableName, batchSize) => {
