@@ -1,21 +1,27 @@
-export const generateAllStatements = (data, tableName, columnType, tableType, batchSize) => {
+export const generateAllStatements = (data, fields, tableName, columnType, tableType, batchSize) => {
   return [
-    generateCreateTableSQL(data[0], tableName, columnType, tableType),
-    generateInsertStatements(data, tableName, batchSize)
+    generateCreateTableSQL(fields, tableName, columnType, tableType),
+    generateInsertStatements(data, fields, tableName, batchSize)
   ].flat()
 }
 
-const generateCreateTableSQL = (headers, tableName, columnType, tableType) => {
-  const columns = headers.map((header) => `${header} ${columnType}`).join(', ');
+const generateCreateTableSQL = (fields, tableName, columnType, tableType) => {
+  const columns = fields
+    .filter(field => field.include === true)
+    .map((field) => `"${field.name}" ${field.type}`).join(', ');
   const createTableSQL = `CREATE ${tableType === 'TEMP' ? "TEMP " : ""}TABLE ${tableName} (${columns});`;
   return createTableSQL;
 }
 
-const generateInsertStatements = (data, tableName, batchSize) => {
+const generateInsertStatements = (data, fields, tableName, batchSize) => {
   const rows = data.slice(1);
+  // removes fields where index != true
+  console.log(fields)
+  const includedFieldIndexes = fields.map((field, index) => field.include === true ? index : null).filter((index) => index !== null);
+  console.log(includedFieldIndexes);
   const insertIntoClause = generateInsertIntoClause(tableName);
   const insertStatements = rows.map((row, rowNumber) => {
-    return generateInsertLine(insertIntoClause, row, rows.length, rowNumber, batchSize)
+    return generateInsertLine(insertIntoClause, includedFieldIndexes, row, rows.length, rowNumber, batchSize)
   });
   return insertStatements.join('');
 };
@@ -24,11 +30,14 @@ const generateInsertIntoClause = (tableName) => {
   return `\n\nINSERT INTO ${tableName} VALUES`
 }
 
-const generateInsertLine = (insertIntoClause, row, totalRows, rowNumber, batchSize) => {
+const generateInsertLine = (insertIntoClause, includedFieldIndexes, row, totalRows, rowNumber, batchSize) => {
   const beginningOfStatement = isFirstLineOfStatement(rowNumber, batchSize) ? insertIntoClause : '';
-  const values = "\n\t(" + row.map((value) => `'${value}'`).join(', ') + ")";
+  const values = row
+    // filter out rows that are not in the includedFieldIndexes and therefore include != true
+    .filter((value, index) => includedFieldIndexes.includes(index) )
+    .map((value) => `'${value}'`).join(', ');
   const endOfStatement = isEndOfStatement(totalRows, rowNumber, batchSize) ? ";" : ",";
-  return beginningOfStatement + values + endOfStatement;
+  return beginningOfStatement + "\n\t(" + values + ")" + endOfStatement;
 }
 
 

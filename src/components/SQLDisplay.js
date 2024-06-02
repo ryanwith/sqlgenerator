@@ -6,7 +6,6 @@ function SQLDisplay({ sql, onChange }) {
       rows="10"
       style={{ width: '100%', resize: 'both' }}
       value={sql}
-      // onChange={onChange}
       placeholder='Your SQL will appear here'
     />
   );

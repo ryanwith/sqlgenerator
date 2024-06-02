@@ -3,7 +3,9 @@ import './App.css';
 import FileUpload from './components/FileUpload';
 import SQLDisplay from './components/SQLDisplay';
 import { generateAllStatements } from './utils/sqlGenerator';
-import { Container, Typography, Grid, Box, InputLabel, Select, FormHelperText, FormControl, MenuItem, TextField} from '@mui/material';
+import { Container, Typography, Grid, Box, InputLabel, Select, FormControl, MenuItem, TextField, 
+  Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Checkbox } from '@mui/material';
+
 
 function App() {
   const [sql, setSQL] = useState('');
@@ -13,37 +15,51 @@ function App() {
   const [columnType, setColumnType] = useState('VARCHAR');
   const [batchSize, setBatchSize] = useState("");
   const [fileData, setFileData] = useState(null);
+  const [fields, setFields] = useState([]);
 
-  const handleData = (data) => { setFileData(data) };
+  const handleData = (data) => { 
+    setFileData(data) ;
+    const fields = data[0].map((field, index) => ({
+      index,
+      name: field,
+      type: 'VARCHAR',
+      include: true
+    }));
+    setFields(fields);
+  };
 
   const handleSQLCriteriaChange = (event) => {
     const { name, value } = event.target;
-    switch (name) {
-      case 'tableType':
-        setTableType(value);
-        break;
-      case 'tableName':
-        setTableName(value);
-        break;
-      case 'columnType':
-        setColumnType(value);
-        break;
-      case 'batchSize':
-        setBatchSize(value);
-        break;
-      default:
-        break;
-    }
+    if (name === 'tableType') setTableType(value);
+    if (name === 'tableName') setTableName(value);
+    if (name === 'columnType') setColumnType(value);
+    if (name === 'batchSize') setBatchSize(value);
+  };
+
+  const handleSQLChange = (event) => {
+    setSQL(event.value);
+  }
+
+  const handleFieldChange = (index, field, value) => {
+    const newFields = [...fields];
+    newFields[index][field] = value;
+    setFields(newFields);
+  };
+
+  const handleIncludeChange = (index) => {
+    const newFields = [...fields];
+    newFields[index].include = !newFields[index].include;
+    setFields(newFields);
   };
 
   useEffect(() => {
-    if (fileData !== null && (fileData || tableName || columnType || tableType || batchSize !== null)) {
-      const allStatements = generateAllStatements(fileData, tableName, columnType, tableType, batchSize);
+    if (fileData !== null ) {
+      const allStatements = generateAllStatements(fileData, fields, tableName, columnType, tableType, batchSize);
       const newSQL = allStatements.join("");
       setSQL(newSQL);
       setIsVisible(!!newSQL); // Show SQLDisplay if newSQL is not empty
     }
-  }, [fileData, tableName, columnType, tableType, batchSize]);
+  }, [fileData, tableName, columnType, tableType, batchSize, fields]);
 
 return (
   <Container>
@@ -57,7 +73,7 @@ return (
       </Grid>
       <Grid item xs={12}>
         <Box mt={2}>
-          {isVisible && <SQLDisplay sql={sql} onChange={handleData} />}
+          {isVisible && <SQLDisplay sql={sql} onChange={handleSQLChange}/>}
         </Box>
       </Grid>
       <Grid id='sql-criteria' item xs={12}>
@@ -116,6 +132,48 @@ return (
           </Grid>
         </Box>
       </Grid>
+      <Grid item xs={12}>
+          <Box mt={2}>
+            {/* ADDED: Table for Column Details */}
+            <TableContainer component={Paper}>
+              <Table size="small" aria-label="a dense table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Column Number</TableCell>
+                    <TableCell>Column Name</TableCell>
+                    <TableCell>Column Type</TableCell>
+                    <TableCell>Include</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {fields.map((field, index) => (
+                    <TableRow key={field.index}>
+                      <TableCell>{field.index + 1}</TableCell>
+                      <TableCell>
+                        <TextField
+                          value={field.name}
+                          onChange={(e) => handleFieldChange(index, 'name', e.target.value)}
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <TextField
+                          value={field.type}
+                          onChange={(e) => handleFieldChange(index, 'type', e.target.value)}
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <Checkbox
+                          checked={field.include}
+                          onChange={() => handleIncludeChange(index)}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Box>
+        </Grid>
     </Grid>
 
   </Container>
