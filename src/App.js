@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import FileUpload from './components/FileUpload';
+// import SQLDownload from './components/SQLDownload';
 import SQLDisplay from './components/SQLDisplay';
 import { generateAllStatements } from './utils/sqlGenerator';
 import { Container, Typography, Grid, Box, InputLabel, Select, FormControl, MenuItem, TextField, 
-  Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Checkbox } from '@mui/material';
+  Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Checkbox, Button } from '@mui/material';
+// import { downloadAsSingleFile } from './utils/sqlUnloader';
 
 
 function App() {
@@ -52,6 +54,19 @@ function App() {
     setFields(newFields);
   };
 
+  const downloadSQL = () => {
+    const blob = new Blob([sql], { type: 'text/sql' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${tableName}.sql`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+  
+
   useEffect(() => {
     if (fileData !== null ) {
       const allStatements = generateAllStatements(fileData, fields, tableName, columnType, tableType, batchSize);
@@ -68,12 +83,17 @@ return (
       <Grid item md={10} sm={9}>
           Easily convert and transform your excel, CSVs, TSVs, and other data files to SQL. Allows you to easily extract, transform, and load small amounts of data between data warehouses.
       </Grid>
-      <Grid item md={2} sm={3} style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+      <Grid item xs="auto" >
         <FileUpload onData={handleData} />
+      </Grid>
+      <Grid item xs="auto" >
+      <Button variant="contained" color="primary" onClick={downloadSQL} style={{ marginTop: '10px' }}>
+          Download SQL
+      </Button>
       </Grid>
       <Grid item xs={12}>
         <Box mt={2}>
-          {isVisible && <SQLDisplay sql={sql} onChange={handleSQLChange}/>}
+          <SQLDisplay sql={sql} onChange={handleSQLChange}/>
         </Box>
       </Grid>
       <Grid id='sql-criteria' item xs={12}>
