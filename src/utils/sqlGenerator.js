@@ -1,9 +1,46 @@
-export const generateAllStatements = (data, fields, tableName, columnType, tableType, batchSize) => {
+import * as XLSX from 'xlsx';
+
+export const generateCreateAndInsertStatements = (data, fields, tableName, columnType, tableType, batchSize) => {
   return [
     generateCreateTableSQL(fields, tableName, columnType, tableType),
     generateInsertStatements(data, fields, tableName, batchSize)
   ].flat()
 }
+
+export const generateClausesFromPaste = (jsonData, batchSize = null) => {
+  const formattedItems = jsonData.map((dataPoint) => {
+    // sometimes punctuation can single cells into an array, e.g. an address with commas, this addresses that
+    return Array.isArray(dataPoint) ? `'${dataPoint.join('')}'` : `'${dataPoint}'`
+  });
+  let chunkedDataPoints = []
+  if(batchSize && batchSize > 0){
+    chunkedDataPoints = [...breakIntoChunks(formattedItems, batchSize)]
+  } else {
+    chunkedDataPoints = [formattedItems]
+  }
+  return chunkedDataPoints;
+};
+
+export const generateWhereClause = (chunkedDataPoints, notIn = false, attributeName = 'column_name') => {
+  const inStatement = notIn ? 'NOT IN (' : 'IN (';
+  const statements = chunkedDataPoints.map((chunk, i) => {
+    const whereOrOr = i===0 ? 'WHERE (\n\t' : 'OR '; 
+    const formattedData = `\n\t\t${chunk.join(',\n\t\t')}\n\t)\n`
+    return `${whereOrOr}${attributeName} ${inStatement} ${formattedData}`
+  })
+  return `${statements.join('\n')})`;
+}
+
+function breakIntoChunks(allDataPoints, chunkSize) { // Changed from generator function
+  const chunks = [];
+  for (let i = 0; i < allDataPoints.length; i += chunkSize) {
+    chunks.push(allDataPoints.slice(i, i + chunkSize));
+  }
+  return chunks;
+}
+
+
+
 
 const generateCreateTableSQL = (fields, tableName, columnType, tableType) => {
   const columns = fields
@@ -16,9 +53,7 @@ const generateCreateTableSQL = (fields, tableName, columnType, tableType) => {
 const generateInsertStatements = (data, fields, tableName, batchSize) => {
   const rows = data.slice(1);
   // removes fields where index != true
-  console.log(fields)
   const includedFieldIndexes = fields.map((field, index) => field.include === true ? index : null).filter((index) => index !== null);
-  console.log(includedFieldIndexes);
   const insertIntoClause = generateInsertIntoClause(tableName);
   const insertStatements = rows.map((row, rowNumber) => {
     return generateInsertLine(insertIntoClause, includedFieldIndexes, row, rows.length, rowNumber, batchSize)
