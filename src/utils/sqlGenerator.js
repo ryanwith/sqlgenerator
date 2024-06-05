@@ -21,10 +21,10 @@ export const generateClausesFromPaste = (jsonData, batchSize = null) => {
   return chunkedDataPoints;
 };
 
-export const generateWhereClause = (chunkedDataPoints, notIn = false, attributeName = 'column_name') => {
+export const generateInClause = (chunkedDataPoints, notIn = false, attributeName = 'column_name') => {
   const inStatement = notIn ? 'NOT IN (' : 'IN (';
   const statements = chunkedDataPoints.map((chunk, i) => {
-    const whereOrOr = i===0 ? 'WHERE (\n\t' : 'OR '; 
+    const whereOrOr = i===0 ? '(\n\t' : 'OR '; 
     const formattedData = `\n\t\t${chunk.join(',\n\t\t')}\n\t)\n`
     return `${whereOrOr}${attributeName} ${inStatement} ${formattedData}`
   })
