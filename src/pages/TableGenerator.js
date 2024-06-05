@@ -3,6 +3,8 @@ import '../App.css';
 import FileUpload from '../components/FileUpload';
 // import SQLDownload from './components/SQLDownload';
 import SQLDisplay from '../components/SQLDisplay';
+import CopyToClipboard from '../components/CopyToClipboard';
+
 import { generateCreateAndInsertStatements } from '../utils/sqlGenerator';
 import { Container, Typography, Grid, Box, InputLabel, Select, FormControl, MenuItem, TextField, 
   Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Checkbox, Button } from '@mui/material';
@@ -14,7 +16,6 @@ function TableGenerator() {
   const [isVisible, setIsVisible] = useState(false);
   const [tableType, setTableType] = useState('TEMP');
   const [tableName, setTableName] = useState('table_name');
-  const [columnType, setColumnType] = useState('VARCHAR');
   const [batchSize, setBatchSize] = useState("");
   const [fileData, setFileData] = useState(null);
   const [fields, setFields] = useState([]);
@@ -28,7 +29,6 @@ function TableGenerator() {
       type: 'VARCHAR',
       include: true
     }));
-    console.log(1)
     setFields(fields);
     setDisableButtons(false);
   };
@@ -37,7 +37,6 @@ function TableGenerator() {
     const { name, value } = event.target;
     if (name === 'tableType') setTableType(value);
     if (name === 'tableName') setTableName(value);
-    if (name === 'columnType') setColumnType(value);
     if (name === 'batchSize') setBatchSize(value);
   };
 
@@ -72,12 +71,12 @@ function TableGenerator() {
 
   useEffect(() => {
     if (fileData ) {
-      const allStatements = generateCreateAndInsertStatements(fileData, fields, tableName, columnType, tableType, batchSize);
+      const allStatements = generateCreateAndInsertStatements(fileData, fields, tableName, tableType, batchSize);
       const newSQL = allStatements.join("");
       setSQL(newSQL);
       setIsVisible(!!newSQL); // Show SQLDisplay if newSQL is not empty
     }
-  }, [fileData, tableName, columnType, tableType, batchSize, fields]);
+  }, [fileData, tableName, tableType, batchSize, fields]);
 
 return (
   <Container>
@@ -88,6 +87,7 @@ return (
       </Typography>
       <Box mt={2} display="flex" flexDirection="row" spacing={2} > 
         <Box mr={1}><FileUpload onData={handleData} /></Box>
+        <Box mr={1}><CopyToClipboard textToCopy={sql} disabled={disableButtons} /></Box>
         <Button variant="contained" color="primary" onClick={downloadSQL} disabled={disableButtons}>
             Download SQL
         </Button>
@@ -96,11 +96,9 @@ return (
         <Box mt={2}>
           <SQLDisplay sql={sql} onChange={handleSQLChange}/>
         </Box>
-      </Grid>
-      <Grid id='sql-criteria' item xs={12}>
         <Box mt={2}>
           <Grid container spacing={2}>
-            <Grid item xs={6}>
+            <Grid item sm={4} xs={12}>
               <FormControl fullWidth>
                 <InputLabel id="table-type">Table Type</InputLabel>
                 <Select
@@ -116,7 +114,7 @@ return (
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item sm={4} xs={12}>
               <FormControl fullWidth>
                 <TextField
                   id="table-name"
@@ -127,18 +125,7 @@ return (
                 />
               </FormControl>
             </Grid>
-            <Grid item xs={6}>
-              <FormControl fullWidth>
-                <TextField
-                  id="column-type"
-                  label="Column Type"
-                  name='columnType'
-                  value={columnType}
-                  onChange={handleSQLCriteriaChange}
-                />
-              </FormControl>
-            </Grid>
-            <Grid item xs={6}>
+            <Grid item sm={4} xs={12}>
               <FormControl fullWidth>
                 <TextField
                   id="batch-size"

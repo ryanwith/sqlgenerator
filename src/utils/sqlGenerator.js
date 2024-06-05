@@ -1,8 +1,8 @@
 import * as XLSX from 'xlsx';
 
-export const generateCreateAndInsertStatements = (data, fields, tableName, columnType, tableType, batchSize) => {
+export const generateCreateAndInsertStatements = (data, fields, tableName, tableType, batchSize) => {
   return [
-    generateCreateTableSQL(fields, tableName, columnType, tableType),
+    generateCreateTableSQL(fields, tableName, tableType),
     generateInsertStatements(data, fields, tableName, batchSize)
   ].flat()
 }
@@ -39,7 +39,7 @@ function breakIntoChunks(allDataPoints, chunkSize) { // Changed from generator f
 }
 
 
-const generateCreateTableSQL = (fields, tableName, columnType, tableType) => {
+const generateCreateTableSQL = (fields, tableName, tableType) => {
   const columns = fields
     .filter(field => field.include === true)
     .map((field) => `"${field.name}" ${field.type}`).join(', ');
