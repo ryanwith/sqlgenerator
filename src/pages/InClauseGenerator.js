@@ -94,10 +94,11 @@ function InClauseGenerator() {
       <Grid id='sql-criteria' item xs={12}>
         <Box mt={2}>
           <Grid container spacing={2}>
-          <Grid item sm={4}>
+          <Grid item sm={4} xs={12}>
               <FormControl fullWidth>
                 <TextField
-                  id="column-name"
+                  labelId="column-name-label"
+                  id="column-name-input"
                   label="Column Name"
                   name='columnName'
                   value={columnName}
@@ -105,7 +106,7 @@ function InClauseGenerator() {
                 />
               </FormControl>
             </Grid>
-            <Grid item sm={4}>
+            <Grid item sm={4} xs={12}>
               <FormControl fullWidth>
                 <InputLabel id="not-in">Include or Exclude</InputLabel>
                 <Select
@@ -121,7 +122,7 @@ function InClauseGenerator() {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item sm={4}>
+            <Grid item sm={4} xs={12}>
               <FormControl fullWidth>
                 <TextField
                   id="batch-size"
