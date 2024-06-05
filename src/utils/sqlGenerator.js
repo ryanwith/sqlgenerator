@@ -8,10 +8,9 @@ export const generateCreateAndInsertStatements = (data, fields, tableName, colum
 }
 
 export const generateClausesFromPaste = (jsonData, batchSize = null) => {
-  const formattedItems = jsonData.map((dataPoint) => {
-    // sometimes punctuation can single cells into an array, e.g. an address with commas, this addresses that
-    return Array.isArray(dataPoint) ? `'${dataPoint.join('')}'` : `'${dataPoint}'`
-  });
+  const formattedItems = jsonData.flat();
+  console.log(jsonData.flat())
+  // console.log(jsonData)
   let chunkedDataPoints = []
   if(batchSize && batchSize > 0){
     chunkedDataPoints = [...breakIntoChunks(formattedItems, batchSize)]
@@ -26,7 +25,7 @@ export const generateInClause = (chunkedDataPoints, notIn = false, attributeName
   const statements = chunkedDataPoints.map((chunk, i) => {
     const whereOrOr = i===0 ? '(\n\t' : 'OR '; 
     const formattedData = `\n\t\t${chunk.join(',\n\t\t')}\n\t)\n`
-    return `${whereOrOr}${attributeName} ${inStatement} ${formattedData}`
+    return `${whereOrOr}"${attributeName}" ${inStatement} ${formattedData}`
   })
   return `${statements.join('\n')})`;
 }
@@ -38,8 +37,6 @@ function breakIntoChunks(allDataPoints, chunkSize) { // Changed from generator f
   }
   return chunks;
 }
-
-
 
 
 const generateCreateTableSQL = (fields, tableName, columnType, tableType) => {
@@ -75,10 +72,6 @@ const generateInsertLine = (insertIntoClause, includedFieldIndexes, row, totalRo
   return beginningOfStatement + "\n\t(" + values + ")" + endOfStatement;
 }
 
-
-// console.log(commaOrSemicolon(totalRows, rowNumber, batchSize))
-// console.log(isEndOfStatement(totalRows, rowNumber, batchSize) ? "slash n" : "")
-// console.log(`end of statement: ${endOfStatement}`)
 const isEndOfStatement = (totalRows, rowNumber, batchSize) => {
   // last row or end of batch
     if(

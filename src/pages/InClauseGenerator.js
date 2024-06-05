@@ -45,7 +45,7 @@ function InClauseGenerator() {
         setUnformattedClauses(generateClausesFromPaste(parsedData, batchSize));
         setInClause(generateInClause(unformattedClauses, notIn, columnName));
     }
-  }, [parsedData, batchSize, unformattedClauses, notIn, columnName]);
+  }, [parsedData, batchSize, notIn, columnName]);
 
 
   return (
