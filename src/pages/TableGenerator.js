@@ -18,6 +18,7 @@ function TableGenerator() {
   const [batchSize, setBatchSize] = useState("");
   const [fileData, setFileData] = useState(null);
   const [fields, setFields] = useState([]);
+  const [disableButtons, setDisableButtons] = useState(true);
 
   const handleData = (data) => { 
     setFileData(data) ;
@@ -27,7 +28,9 @@ function TableGenerator() {
       type: 'VARCHAR',
       include: true
     }));
+    console.log(1)
     setFields(fields);
+    setDisableButtons(false);
   };
 
   const handleSQLCriteriaChange = (event) => {
@@ -78,19 +81,17 @@ function TableGenerator() {
 
 return (
   <Container>
-    <h1>Excel to SQL</h1>
+    <Typography variant="h5">Excel to SQL Converter</Typography>
     <Grid container >
-      <Grid item md={10} sm={9}>
+      <Typography variant='body1'>
           Easily convert and transform your excel, CSVs, TSVs, and other data files to SQL. Allows you to easily extract, transform, and load small amounts of data between data warehouses.
-      </Grid>
-      <Grid item xs="auto" >
-        <FileUpload onData={handleData} />
-      </Grid>
-      <Grid item xs="auto" >
-      <Button variant="contained" color="primary" onClick={downloadSQL} style={{ marginTop: '10px' }}>
-          Download SQL
-      </Button>
-      </Grid>
+      </Typography>
+      <Box mt={2} display="flex" flexDirection="row" spacing={2} > 
+        <Box mr={1}><FileUpload onData={handleData} /></Box>
+        <Button variant="contained" color="primary" onClick={downloadSQL} disabled={disableButtons}>
+            Download SQL
+        </Button>
+      </Box>
       <Grid item xs={12}>
         <Box mt={2}>
           <SQLDisplay sql={sql} onChange={handleSQLChange}/>

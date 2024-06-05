@@ -43,7 +43,7 @@ const generateCreateTableSQL = (fields, tableName, columnType, tableType) => {
   const columns = fields
     .filter(field => field.include === true)
     .map((field) => `"${field.name}" ${field.type}`).join(', ');
-  const createTableSQL = `CREATE ${tableType === 'TEMP' ? "TEMP " : ""}TABLE ${tableName} (${columns});`;
+  const createTableSQL = `CREATE ${tableType === 'TEMP' ? "TEMP " : ""}TABLE "${tableName}" (${columns});`;
   return createTableSQL;
 }
 
@@ -59,7 +59,7 @@ const generateInsertStatements = (data, fields, tableName, batchSize) => {
 };
 
 const generateInsertIntoClause = (tableName) => {
-  return `\n\nINSERT INTO ${tableName} VALUES`
+  return `\n\nINSERT INTO "${tableName}" VALUES`
 }
 
 const generateInsertLine = (insertIntoClause, includedFieldIndexes, row, totalRows, rowNumber, batchSize) => {

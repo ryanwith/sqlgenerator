@@ -50,7 +50,7 @@ function InClauseGenerator() {
 
   return (
     <Container>
-      <Typography variant="h1">In Clause Generator</Typography>
+      <Typography variant="h5">In Clause Generator</Typography>
       <Box>
         <Tabs 
             mb={2} 
