@@ -1,4 +1,4 @@
-export const generateCreateAndInsertStatements = (data, fields, tableName, tableType, batchSize) => {
+const generateCreateAndInsertStatements = (data, fields, tableName, tableType, batchSize) => {
   console.log('data')
   console.log(data)
   return [
@@ -7,7 +7,7 @@ export const generateCreateAndInsertStatements = (data, fields, tableName, table
   ].flat()
 }
 
-export const generateInClausesFromPaste = (jsonData, batchSize = null) => {
+const generateInClausesFromPaste = (jsonData, batchSize = null) => {
   const formattedItems = jsonData.flat();
   console.log(jsonData.flat())
   // console.log(jsonData)
@@ -20,7 +20,7 @@ export const generateInClausesFromPaste = (jsonData, batchSize = null) => {
   return chunkedDataPoints;
 };
 
-export const generateFullInClause = (chunkedDataPoints, notIn = false, attributeName = 'column_name') => {
+const generateFullInClause = (chunkedDataPoints, notIn = false, attributeName = 'column_name') => {
   const inStatement = notIn ? 'NOT IN (' : 'IN (';
   const statements = chunkedDataPoints.map((chunk, i) => {
     const whereOrOr = i===0 ? '(\n\t' : 'OR '; 
@@ -102,9 +102,31 @@ const isFirstLineOfStatement = (rowNumber, batchSize) => {
 }
 
 const validBatchSize = (batchSize) => {
+  console.log(`batchSize: ${batchSize}`)
   if(Number.isInteger(batchSize) !== true && batchSize > 0){
+    console.log('valid')
     return true;
   } else {
+    console.log('not valid')
     return false;
   }
 }
+
+const sqlGenerator = {
+  generateCreateAndInsertStatements,
+  generateInClausesFromPaste,
+  generateFullInClause,
+};
+
+if (process.env.NODE_ENV === 'test') {
+  sqlGenerator.breakIntoChunks = breakIntoChunks;
+  sqlGenerator.generateCreateTableSQL = generateCreateTableSQL;
+  sqlGenerator.generateInsertStatements = generateInsertStatements;
+  sqlGenerator.generateInsertIntoClause = generateInsertIntoClause;
+  sqlGenerator.generateInsertLine = generateInsertLine;
+  sqlGenerator.isEndOfStatement = isEndOfStatement;
+  sqlGenerator.isFirstLineOfStatement = isFirstLineOfStatement;
+  sqlGenerator.validBatchSize = validBatchSize;
+}
+
+export default sqlGenerator;

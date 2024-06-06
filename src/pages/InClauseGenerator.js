@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import * as XLSX from 'xlsx';
 import { TextField, Button, Box, Tabs, Tab, Container, Typography, Grid, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { generateInClausesFromPaste, generateFullInClause } from '../utils/sqlGenerator';
+import sqlGenerator from '../utils/sqlGenerator';
+const { generateInClausesFromPaste, generateFullInClause  } = sqlGenerator;
 
 function InClauseGenerator() {
   const [excelData, setExcelData] = useState('');

@@ -5,12 +5,13 @@ import FileUpload from '../components/FileUpload';
 import SQLDisplay from '../components/SQLDisplay';
 import CopyToClipboard from '../components/CopyToClipboard';
 import PasteDataModal from '../components/PasteDataModal';
-
-import { generateCreateAndInsertStatements } from '../utils/sqlGenerator';
+import sqlGenerator from '../utils/sqlGenerator';
 import { Container, Typography, Grid, Box, InputLabel, Select, FormControl, MenuItem, TextField, 
   Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Checkbox, Button } from '@mui/material';
 // import { downloadAsSingleFile } from './utils/sqlUnloader';
 
+// import from sqlGenerator
+const { generateCreateAndInsertStatements  } = sqlGenerator;
 
 function TableGenerator() {
   const [sql, setSQL] = useState('');
