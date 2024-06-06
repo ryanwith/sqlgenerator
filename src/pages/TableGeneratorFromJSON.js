@@ -11,7 +11,7 @@ import { Container, Typography, Grid, Box, InputLabel, Select, FormControl, Menu
 // import { downloadAsSingleFile } from './utils/sqlUnloader';
 
 
-function TableGenerator() {
+function TableGeneratorFromJSON() {
   const [sql, setSQL] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const [tableType, setTableType] = useState('TEMP');
@@ -82,17 +82,17 @@ return (
   <Container>
     <Grid container>
       <Grid sm={10} xs={12}>
-        <Typography variant="h5">Excel to SQL Converter</Typography>
+        <Typography variant="h5">JSON to SQL Converter</Typography>
       </Grid>
     </Grid>
     <Grid container >
       <Typography variant='body1'>
-          Easily convert and transform your excel, CSVs, TSVs, and other data files to SQL.
+          Easily convert your JSON files to SQL.
           Allows you to easily extract, transform, and load small amounts of data between data warehouses.
           Use the options below to modify the SQL.
       </Typography>
       <Box mt={2} display="flex" flexDirection="row" spacing={2} > 
-        <Box mr={1}><FileUpload onData={handleData} fileType = 'SPREADSHEET' /></Box>
+        <Box mr={1}><FileUpload onData={handleData} fileType='JSON'/></Box>
         <Box mr={1}><CopyToClipboard textToCopy={sql} disabled={disableButtons} /></Box>
         <Button variant="contained" color="primary" onClick={downloadSQL} disabled={disableButtons}>
             Download SQL
@@ -194,6 +194,6 @@ return (
 );
 
 }
-export default TableGenerator;
+export default TableGeneratorFromJSON;
 
 
