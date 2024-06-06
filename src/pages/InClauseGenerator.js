@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as XLSX from 'xlsx';
 import { TextField, Button, Box, Tabs, Tab, Container, Typography, Grid, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { generateClausesFromPaste, generateInClause } from '../utils/sqlGenerator';
+import { generateInClausesFromPaste, generateFullInClause } from '../utils/sqlGenerator';
 
 function InClauseGenerator() {
   const [excelData, setExcelData] = useState('');
@@ -28,8 +28,8 @@ function InClauseGenerator() {
     const sheet = workbook.Sheets[sheetName];
     const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
     setParsedData(jsonData);
-    setUnformattedClauses(generateClausesFromPaste(jsonData, batchSize));
-    setInClause(generateInClause(unformattedClauses, notIn, columnName));
+    setUnformattedClauses(generateInClausesFromPaste(jsonData, batchSize));
+    setInClause(generateFullInClause(unformattedClauses, notIn, columnName));
     setCurrentTab(1);
   };
 
@@ -42,8 +42,8 @@ function InClauseGenerator() {
 
   useEffect(() => {
     if (parsedData.length !== 0) {
-        setUnformattedClauses(generateClausesFromPaste(parsedData, batchSize));
-        setInClause(generateInClause(unformattedClauses, notIn, columnName));
+        setUnformattedClauses(generateInClausesFromPaste(parsedData, batchSize));
+        setInClause(generateFullInClause(unformattedClauses, notIn, columnName));
     }
   }, [parsedData, batchSize, notIn, columnName]);
 

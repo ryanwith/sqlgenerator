@@ -4,6 +4,7 @@ import FileUpload from '../components/FileUpload';
 // import SQLDownload from './components/SQLDownload';
 import SQLDisplay from '../components/SQLDisplay';
 import CopyToClipboard from '../components/CopyToClipboard';
+import PasteDataModal from '../components/PasteDataModal';
 
 import { generateCreateAndInsertStatements } from '../utils/sqlGenerator';
 import { Container, Typography, Grid, Box, InputLabel, Select, FormControl, MenuItem, TextField, 
@@ -17,12 +18,12 @@ function TableGenerator() {
   const [tableType, setTableType] = useState('TEMP');
   const [tableName, setTableName] = useState('table_name');
   const [batchSize, setBatchSize] = useState("");
-  const [fileData, setFileData] = useState(null);
+  const [providedData, setProvidedData] = useState(null);
   const [fields, setFields] = useState([]);
   const [disableButtons, setDisableButtons] = useState(true);
 
   const handleData = (data) => { 
-    setFileData(data) ;
+    setProvidedData(data) ;
     const fields = data[0].map((field, index) => ({
       index,
       name: field,
@@ -70,13 +71,13 @@ function TableGenerator() {
   
 
   useEffect(() => {
-    if (fileData ) {
-      const allStatements = generateCreateAndInsertStatements(fileData, fields, tableName, tableType, batchSize);
+    if (providedData ) {
+      const allStatements = generateCreateAndInsertStatements(providedData, fields, tableName, tableType, batchSize);
       const newSQL = allStatements.join("");
       setSQL(newSQL);
       setIsVisible(!!newSQL); // Show SQLDisplay if newSQL is not empty
     }
-  }, [fileData, tableName, tableType, batchSize, fields]);
+  }, [providedData, tableName, tableType, batchSize, fields]);
 
 return (
   <Container>
@@ -93,6 +94,7 @@ return (
       </Typography>
       <Box mt={2} display="flex" flexDirection="row" spacing={2} > 
         <Box mr={1}><FileUpload onData={handleData} fileType = 'SPREADSHEET' /></Box>
+        <Box mr={1}><PasteDataModal onData={handleData} fileType = 'SPREADSHEET'/></Box>
         <Box mr={1}><CopyToClipboard textToCopy={sql} disabled={disableButtons} /></Box>
         <Button variant="contained" color="primary" onClick={downloadSQL} disabled={disableButtons}>
             Download SQL

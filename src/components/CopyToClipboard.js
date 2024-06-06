@@ -11,7 +11,7 @@ function CopyToClipboard({ textToCopy, disabled }) {
   };
 
   return (
-    <Button variant="contained" color="secondary" onClick={handleCopy} disabled={disabled}>
+    <Button variant="contained" onClick={handleCopy} disabled={disabled}>
       Copy to Clipboard
     </Button>
   );

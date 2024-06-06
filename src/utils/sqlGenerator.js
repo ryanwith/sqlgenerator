@@ -1,13 +1,13 @@
-import * as XLSX from 'xlsx';
-
 export const generateCreateAndInsertStatements = (data, fields, tableName, tableType, batchSize) => {
+  console.log('data')
+  console.log(data)
   return [
     generateCreateTableSQL(fields, tableName, tableType),
     generateInsertStatements(data, fields, tableName, batchSize)
   ].flat()
 }
 
-export const generateClausesFromPaste = (jsonData, batchSize = null) => {
+export const generateInClausesFromPaste = (jsonData, batchSize = null) => {
   const formattedItems = jsonData.flat();
   console.log(jsonData.flat())
   // console.log(jsonData)
@@ -20,7 +20,7 @@ export const generateClausesFromPaste = (jsonData, batchSize = null) => {
   return chunkedDataPoints;
 };
 
-export const generateInClause = (chunkedDataPoints, notIn = false, attributeName = 'column_name') => {
+export const generateFullInClause = (chunkedDataPoints, notIn = false, attributeName = 'column_name') => {
   const inStatement = notIn ? 'NOT IN (' : 'IN (';
   const statements = chunkedDataPoints.map((chunk, i) => {
     const whereOrOr = i===0 ? '(\n\t' : 'OR '; 
