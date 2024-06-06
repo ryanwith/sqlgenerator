@@ -7,6 +7,7 @@ function SQLDisplay({ sql, onChange }) {
       style={{ width: '100%', resize: 'both' }}
       value={sql}
       placeholder='Your SQL will appear here'
+      readOnly
     />
   );
 }

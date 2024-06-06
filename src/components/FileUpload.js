@@ -13,8 +13,10 @@ const spreadsheetToJSON = (e) => {
 
 const jsonToJSON = (e) => {
   const jsonStr = e.target.result;
+  console.log(jsonStr);
+  console.log('trying');
   const jsonData = JSON.parse(jsonStr);
-
+  console.log('got passed')
   // Ensure the jsonData is in the desired format
   if (Array.isArray(jsonData) && jsonData.every(Array.isArray)) {
     return jsonData;
@@ -48,7 +50,7 @@ function FileUpload({ fileType, onData }) {
         setData(jsonData);
         onData(jsonData)
       } catch(error){
-        alert('There was a problem uploading this file. Please check your file and try again.');
+        alert('There was a problem with the file. Please check your file and try again.');
         console.error('File processing error:', error);      
       }
     };
@@ -57,7 +59,7 @@ function FileUpload({ fileType, onData }) {
       alert('There was a problem reading the file.');
     };
     
-    reader.readAsArrayBuffer(file);
+    reader.readAsText(file);
   };
 
   return (
