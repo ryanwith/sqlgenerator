@@ -4,7 +4,7 @@ import FileUpload from '../components/FileUpload';
 // import SQLDownload from './components/SQLDownload';
 import SQLDisplay from '../components/SQLDisplay';
 import CopyToClipboard from '../components/CopyToClipboard';
-
+import PasteDataModal from '../components/PasteDataModal';
 import { generateCreateAndInsertStatements } from '../utils/sqlGenerator';
 import { Container, Typography, Grid, Box, InputLabel, Select, FormControl, MenuItem, TextField, 
   Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Checkbox, Button } from '@mui/material';
@@ -93,6 +93,7 @@ return (
       </Typography>
       <Box mt={2} display="flex" flexDirection="row" spacing={2} > 
         <Box mr={1}><FileUpload onData={handleData} fileType='JSON'/></Box>
+        <Box mr={1}><PasteDataModal onData={handleData} fileType = 'JSON'/></Box>
         <Box mr={1}><CopyToClipboard textToCopy={sql} disabled={disableButtons} /></Box>
         <Button variant="contained" color="primary" onClick={downloadSQL} disabled={disableButtons}>
             Download SQL

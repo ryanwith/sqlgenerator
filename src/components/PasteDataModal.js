@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Modal, Box, Typography, TextField, Backdrop, Fade } from '@mui/material';
+import { formatJSON } from '../utils/jsonFormatter';
 
 const PasteDataModal = ({onData, fileType}) => {
   const [open, setOpen] = useState(false);
@@ -9,14 +10,21 @@ const PasteDataModal = ({onData, fileType}) => {
   const handleClose = () => setOpen(false);
 
   const handleSubmit = () => {
-    let data = [];
-    let rows = [];
-    if(fileType === 'SPREADSHEET'){
-      rows = inputData.trim().split('\n');
-      data = rows.map(row => row.split('\t'));
+    try{
+      let data = [];
+      let rows = [];
+      if(fileType === 'SPREADSHEET'){
+        rows = inputData.trim().split('\n');
+        data = rows.map(row => row.split('\t'));
+      }else if (fileType === 'JSON'){
+        data = formatJSON(JSON.parse(inputData + 1));
+      }
+      onData(data);
+      handleClose();
+    } catch(error){
+      alert('There was a problem with the data you pasted. Please check the and try again.');
+      console.error('Paste processing error:', error);      
     }
-    onData(data);
-    handleClose();
   };
 
   return (

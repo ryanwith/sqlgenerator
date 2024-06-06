@@ -3,6 +3,7 @@ export const formatJSON = (jsonData) => {
   if (Array.isArray(jsonData) && jsonData.every(Array.isArray)) {
     return jsonData;
   } else {
+    // console.log(jsonData)
     const allKeys = new Set();
     jsonData.forEach(obj => Object.keys(obj).forEach(key => allKeys.add(key)));
 
