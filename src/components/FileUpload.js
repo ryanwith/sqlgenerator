@@ -13,17 +13,17 @@ const spreadsheetToJSON = (e) => {
 
 const jsonToJSON = (e) => {
   const jsonStr = e.target.result;
-  console.log(jsonStr);
-  console.log('trying');
   const jsonData = JSON.parse(jsonStr);
-  console.log('got passed')
-  // Ensure the jsonData is in the desired format
+
   if (Array.isArray(jsonData) && jsonData.every(Array.isArray)) {
     return jsonData;
   } else {
-    // Convert JSON object array to a 2D array if necessary
-    const keys = Object.keys(jsonData[0]);
-    const dataArray = jsonData.map(obj => keys.map(key => obj[key]));
+    const allKeys = new Set();
+    jsonData.forEach(obj => Object.keys(obj).forEach(key => allKeys.add(key)));
+
+    const keys = Array.from(allKeys);
+    const dataArray = jsonData.map(obj => keys.map(key => obj.hasOwnProperty(key) ? obj[key] : null));
+
     const formattedData = [keys, ...dataArray];
     return formattedData;
   }
