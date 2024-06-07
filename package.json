@@ -1,7 +1,7 @@
 {
   "name": "sql-generator",
   "version": "0.1.0",
-  "homepage": "https://ryanwaldorf.github.io/sql-generator/",
+  "homepage": "https://www.sqlgenerator.io",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.4",

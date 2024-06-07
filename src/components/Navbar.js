@@ -25,8 +25,8 @@ function Navbar() {
                             open={Boolean(anchorEl)}
                             onClose={handleClose}
                         >
-                            <MenuItem onClick={handleClose} component="a" href="/sql-table-generator/excel-to-sql">Excel to SQL</MenuItem>
-                            <MenuItem onClick={handleClose} component="a" href="/sql-table-generator/json-to-sql">JSON to SQL</MenuItem>
+                            <MenuItem onClick={handleClose} component="a" href="/sql-converter/excel-to-sql">Excel to SQL</MenuItem>
+                            <MenuItem onClick={handleClose} component="a" href="/sql-converter/json-to-sql">JSON to SQL</MenuItem>
                         </Menu>                    </Box>
                 </Toolbar>
                 </Container>
