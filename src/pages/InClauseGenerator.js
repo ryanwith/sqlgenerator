@@ -24,15 +24,32 @@ function InClauseGenerator() {
   };
 
   const parseExcelData = () => {
-    const workbook = XLSX.read(excelData, { type: 'string' });
-    const sheetName = workbook.SheetNames[0];
-    const sheet = workbook.Sheets[sheetName];
+    // Split the pasted text by new lines and then by tabs or other delimiters
+    const rows = excelData.trim().split('\n').map(row => row.split('\t'));
+
+    // Create a worksheet from the rows
+    const sheet = XLSX.utils.aoa_to_sheet(rows);
     const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+    console.log(jsonData)
     setParsedData(jsonData);
     setUnformattedClauses(generateInClausesFromPaste(jsonData, batchSize));
     setInClause(generateFullInClause(unformattedClauses, notIn, columnName));
     setCurrentTab(1);
   };
+
+  useEffect(() => {
+    if (parsedData.length !== 0) {
+      const clauses = generateInClausesFromPaste(parsedData, batchSize);
+      setUnformattedClauses(clauses);
+    }
+  }, [parsedData, batchSize]);
+
+  useEffect(() => {
+    if (unformattedClauses.length !== 0) {
+      setInClause(generateFullInClause(unformattedClauses, notIn, columnName));
+      setCurrentTab(1);
+    }
+  }, [unformattedClauses, notIn, columnName]);
 
   const handleSQLCriteriaChange = (event) => {
     const { name, value } = event.target;
@@ -41,12 +58,7 @@ function InClauseGenerator() {
     if (name === 'batchSize') setBatchSize(value);
   };
 
-  useEffect(() => {
-    if (parsedData.length !== 0) {
-        setUnformattedClauses(generateInClausesFromPaste(parsedData, batchSize));
-        setInClause(generateFullInClause(unformattedClauses, notIn, columnName));
-    }
-  }, [parsedData, batchSize, notIn, columnName]);
+
 
 
   return (

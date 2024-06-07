@@ -1,6 +1,4 @@
 const generateCreateAndInsertStatements = (data, fields, tableName, tableType, batchSize) => {
-  console.log('data')
-  console.log(data)
   return [
     generateCreateTableSQL(fields, tableName, tableType),
     generateInsertStatements(data, fields, tableName, batchSize)
@@ -8,11 +6,9 @@ const generateCreateAndInsertStatements = (data, fields, tableName, tableType, b
 }
 
 const generateInClausesFromPaste = (jsonData, batchSize = null) => {
-  const formattedItems = jsonData.flat();
-  console.log(jsonData.flat())
-  // console.log(jsonData)
+  const formattedItems = jsonData.flat().map((item) => `'${item}'`);
   let chunkedDataPoints = []
-  if(batchSize && batchSize > 0){
+  if(validBatchSize(batchSize) && batchSize > 0){
     chunkedDataPoints = [...breakIntoChunks(formattedItems, batchSize)]
   } else {
     chunkedDataPoints = [formattedItems]
@@ -21,6 +17,7 @@ const generateInClausesFromPaste = (jsonData, batchSize = null) => {
 };
 
 const generateFullInClause = (chunkedDataPoints, notIn = false, attributeName = 'column_name') => {
+  // console.log(chunkedDataPoints)
   const inStatement = notIn ? 'NOT IN (' : 'IN (';
   const statements = chunkedDataPoints.map((chunk, i) => {
     const whereOrOr = i===0 ? '(\n\t' : 'OR '; 
@@ -30,12 +27,14 @@ const generateFullInClause = (chunkedDataPoints, notIn = false, attributeName = 
   return `${statements.join('\n')})`;
 }
 
-function breakIntoChunks(allDataPoints, chunkSize) { // Changed from generator function
-  const chunks = [];
-  for (let i = 0; i < allDataPoints.length; i += chunkSize) {
-    chunks.push(allDataPoints.slice(i, i + chunkSize));
+function breakIntoChunks(allDataPoints, batchSize) { // Changed from generator function
+
+  const result = [];
+  for (let i = 0; i < allDataPoints.length; i += Number(batchSize)) {
+    const batch = allDataPoints.slice(i, i + Number(batchSize));
+    result.push(batch);
   }
-  return chunks;
+  return result;
 }
 
 
@@ -102,12 +101,12 @@ const isFirstLineOfStatement = (rowNumber, batchSize) => {
 }
 
 const validBatchSize = (batchSize) => {
-  console.log(`batchSize: ${batchSize}`)
+  // console.log(`batchSize: ${batchSize}`)
   if(Number.isInteger(Number(batchSize)) === true && batchSize > 0){
-    console.log('valid')
+    // console.log('valid')
     return true;
   } else {
-    console.log('not valid')
+    // console.log('not valid')
     return false;
   }
 }
