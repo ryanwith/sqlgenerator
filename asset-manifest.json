@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/sqlgenerator/static/css/main.df0f010d.css",
-    "main.js": "/sqlgenerator/static/js/main.4ab6d79d.js",
+    "main.js": "/sqlgenerator/static/js/main.d7c0b9e2.js",
     "static/js/453.bfdb987a.chunk.js": "/sqlgenerator/static/js/453.bfdb987a.chunk.js",
     "index.html": "/sqlgenerator/index.html",
     "main.df0f010d.css.map": "/sqlgenerator/static/css/main.df0f010d.css.map",
-    "main.4ab6d79d.js.map": "/sqlgenerator/static/js/main.4ab6d79d.js.map",
+    "main.d7c0b9e2.js.map": "/sqlgenerator/static/js/main.d7c0b9e2.js.map",
     "453.bfdb987a.chunk.js.map": "/sqlgenerator/static/js/453.bfdb987a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.df0f010d.css",
-    "static/js/main.4ab6d79d.js"
+    "static/js/main.d7c0b9e2.js"
   ]
 }
