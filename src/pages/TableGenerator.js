@@ -87,20 +87,22 @@ return (
         <Typography variant="h5">Excel to SQL Converter</Typography>
       </Grid>
     </Grid>
+    <Typography variant='body1'>
+        Easily convert and transform your excel, CSVs, TSVs, and other data files to SQL.
+        Allows you to easily extract, transform, and load small amounts of data between data warehouses.
+        Use the options below to modify the SQL.
+    </Typography>
+    <Box mt={2}  > 
+    <Grid container>
+      <Box mr={1}><FileUpload onData={handleData} fileType = 'SPREADSHEET' /></Box>
+      <Box mr={1}><PasteDataModal onData={handleData} fileType = 'SPREADSHEET'/></Box>
+      <Box mr={1}><CopyToClipboard textToCopy={sql} disabled={disableButtons} /></Box>
+      <Button variant="contained" color="primary" onClick={downloadSQL} disabled={disableButtons}>
+          Download SQL
+      </Button>
+      </Grid>
+    </Box>    
     <Grid container >
-      <Typography variant='body1'>
-          Easily convert and transform your excel, CSVs, TSVs, and other data files to SQL.
-          Allows you to easily extract, transform, and load small amounts of data between data warehouses.
-          Use the options below to modify the SQL.
-      </Typography>
-      <Box mt={2} display="flex" flexDirection="row" spacing={2} > 
-        <Box mr={1}><FileUpload onData={handleData} fileType = 'SPREADSHEET' /></Box>
-        <Box mr={1}><PasteDataModal onData={handleData} fileType = 'SPREADSHEET'/></Box>
-        <Box mr={1}><CopyToClipboard textToCopy={sql} disabled={disableButtons} /></Box>
-        <Button variant="contained" color="primary" onClick={downloadSQL} disabled={disableButtons}>
-            Download SQL
-        </Button>
-      </Box>
       <Grid item xs={12}>
         <Box mt={2}>
           <SQLDisplay sql={sql} onChange={handleSQLChange}/>

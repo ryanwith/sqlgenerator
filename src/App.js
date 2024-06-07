@@ -13,6 +13,7 @@ function App() {
         <Navbar></Navbar>
 
         <Routes>
+          <Route path="/" element={<InClauseGenerator />} />
           <Route path="/in-clause-generator" element={<InClauseGenerator />} />
           <Route path="/sql-table-generator/excel-to-sql" element={<TableGenerator />} />
           <Route path="/sql-table-generator/json-to-sql" element={<TableGeneratorFromJSON />} />

@@ -66,7 +66,7 @@ function FileUpload({ fileType, onData }) {
         onChange={handleFileUpload}
       />
       <label htmlFor="file-upload" style={{ flex: 1 }}>
-        <Button variant="contained" component="span" style={{ width: '100%' }}>
+        <Button variant="contained" component="span" >
           Upload File
         </Button>
       </label>
