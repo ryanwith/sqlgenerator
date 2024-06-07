@@ -103,7 +103,7 @@ const isFirstLineOfStatement = (rowNumber, batchSize) => {
 
 const validBatchSize = (batchSize) => {
   console.log(`batchSize: ${batchSize}`)
-  if(Number.isInteger(batchSize) !== true && batchSize > 0){
+  if(Number.isInteger(Number(batchSize)) === true && batchSize > 0){
     console.log('valid')
     return true;
   } else {
