@@ -49,7 +49,11 @@ function FileUpload({ fileType, onData }) {
       alert('There was a problem reading the file.');
     };
     
-    reader.readAsText(file);
+    if (fileType === 'SPREADSHEET') {
+      reader.readAsBinaryString(file);
+    } else if (fileType === 'JSON') {
+      reader.readAsText(file);
+    }
   };
 
   return (
