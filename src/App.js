@@ -14,10 +14,10 @@ function App() {
         <Navbar></Navbar>
 
         <Routes>
-          <Route path="/" exact component={<Home />} />
-          <Route path="/in-clause-generator" component={<InClauseGenerator />} />
-          <Route path="/sql-converter/excel-to-sql" component={<TableGenerator />} />
-          <Route path="/sql-converter/json-to-sql" component={<TableGeneratorFromJSON />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/in-clause-generator" element={<InClauseGenerator />} />
+          <Route path="/sql-converter/excel-to-sql" element={<TableGenerator />} />
+          <Route path="/sql-converter/json-to-sql" element={<TableGeneratorFromJSON />} />
         </Routes>
       </div>
     </Router>
