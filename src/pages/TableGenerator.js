@@ -15,7 +15,6 @@ const { generateCreateAndInsertStatements  } = sqlGenerator;
 
 function TableGenerator() {
   const [sql, setSQL] = useState('');
-  const [isVisible, setIsVisible] = useState(false);
   const [tableType, setTableType] = useState('TEMP');
   const [tableName, setTableName] = useState('table_name');
   const [batchSize, setBatchSize] = useState("");
@@ -76,7 +75,6 @@ function TableGenerator() {
       const allStatements = generateCreateAndInsertStatements(providedData, fields, tableName, tableType, batchSize);
       const newSQL = allStatements.join("");
       setSQL(newSQL);
-      setIsVisible(!!newSQL); // Show SQLDisplay if newSQL is not empty
     }
   }, [providedData, tableName, tableType, batchSize, fields]);
 

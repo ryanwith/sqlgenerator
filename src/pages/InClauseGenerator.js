@@ -13,6 +13,7 @@ function InClauseGenerator() {
   const [batchSize, setBatchSize] = useState(0);
   const [currentTab, setCurrentTab] = useState(0); // 0 for Pasted Data, 1 for In Clause
   const [unformattedClauses, setUnformattedClauses] = useState([]); // 0 for Pasted Data, 1 for In Clause
+  const [disableButtons, setDisableButtons] = useState(true);
 
   const handleTabChange = (event, newValue) => {
     setCurrentTab(newValue);
@@ -51,6 +52,14 @@ function InClauseGenerator() {
     }
   }, [unformattedClauses, notIn, columnName]);
 
+  useEffect(() => {
+    if (excelData){
+      setDisableButtons(false);
+    } else {
+      setDisableButtons(true);
+    }
+  }, [excelData])
+
   const handleSQLCriteriaChange = (event) => {
     const { name, value } = event.target;
     if (name === 'columnName') setColumnName(value);
@@ -63,7 +72,7 @@ function InClauseGenerator() {
 
   return (
     <Container>
-      <Typography variant="h5">In Clause Generator</Typography>
+      <Typography variant="h5">In-Clause Generator</Typography>
       <Box>
         <Tabs 
             mb={2} 
@@ -71,7 +80,7 @@ function InClauseGenerator() {
             onChange={handleTabChange}
             >
             <Tab label="Pasted Data" />
-            <Tab label="Generated In Clause" />
+            <Tab label="Generated In-Clause" />
             
         </Tabs>
       </Box>
@@ -154,8 +163,9 @@ function InClauseGenerator() {
             color="primary"
             onClick={parseExcelData}
             style={{ marginTop: '10px' }}
+            disabled={disableButtons}
           >
-            Parse Excel Data
+            Generate
         </Button>
       </Grid>
     </Container>

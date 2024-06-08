@@ -14,7 +14,6 @@ const { generateCreateAndInsertStatements } = sqlGenerator;
 
 function TableGeneratorFromJSON() {
   const [sql, setSQL] = useState('');
-  const [isVisible, setIsVisible] = useState(false);
   const [tableType, setTableType] = useState('TEMP');
   const [tableName, setTableName] = useState('table_name');
   const [batchSize, setBatchSize] = useState("");
@@ -75,7 +74,6 @@ function TableGeneratorFromJSON() {
       const allStatements = generateCreateAndInsertStatements(fileData, fields, tableName, tableType, batchSize);
       const newSQL = allStatements.join("");
       setSQL(newSQL);
-      setIsVisible(!!newSQL); // Show SQLDisplay if newSQL is not empty
     }
   }, [fileData, tableName, tableType, batchSize, fields]);
 

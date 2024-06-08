@@ -25,3 +25,5 @@ yarn-error.log*
 # saving work
 App_old.js
 App_saved.js
+# Local Netlify folder
+.netlify
