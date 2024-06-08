@@ -28,7 +28,6 @@ const acceptedFileType = (fileType) => {
 }
 
 function FileUpload({ fileType, onData }) {
-  const [data, setData] = useState([]);
 
   const handleFileUpload = (event ) => {
     const file = event.target.files[0];
@@ -37,7 +36,6 @@ function FileUpload({ fileType, onData }) {
     reader.onload = (e) => {
       try {
         const jsonData = fileType === 'SPREADSHEET' ? spreadsheetToJSON(e) : jsonToJSON(e);
-        setData(jsonData);
         onData(jsonData)
       } catch(error){
         alert('There was a problem with the file. Please check your file and try again.');
