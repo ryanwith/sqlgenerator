@@ -26,7 +26,7 @@ const Home = () => {
         </ListItem>
         <ListItem>
           <Typography variant="body1">
-            <strong><MuiLink component={RouterLink} to='/sql-converter/json-to-sql'>JSON to SQL</MuiLink>: </strong> 
+            <strong><MuiLink component={RouterLink} to='/sql-converter/json-to-sql'>JSON to SQL Converter</MuiLink>: </strong> 
             Generates a SQL CREATE TABLE and SQL INSERT INTO statements from uploaded JSON files and pasted JSON.  Great for when you need to ingest and join data sets into a warehouse for adhoc analyses.
           </Typography>
         </ListItem>
