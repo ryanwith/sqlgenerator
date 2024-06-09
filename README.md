@@ -10,11 +10,11 @@ Additionally the initial structure was developed using [plandex](https://plandex
 
 This currently provides three options:
 
-1/ [In-Clause Generator](https://github.com/ryanwaldorf/sqlgenerator/blob/main/src/pages/InClauseGenerator.js).  Generates a SQL in-clause from pasted spreadsheet data.  Great when you have a CSV containing identifiers like customer or order IDs that you want to filter an existing table on.  
+1/ [In-Clause Generator](https://github.com/ryanwaldorf/sqlgenerator/blob/main/src/pages/InClauseGenerator.js).  Generates SQL in-clauses from pasted data.  Great when you have a CSV containing identifiers like customer or order IDs that you want to filter an existing table on.
 
-2/ [Excel to SQL](https://github.com/ryanwaldorf/sqlgenerator/blob/main/src/pages/TableGeneratorFromExcel.js).  Generates a SQL CREATE TABLE and SQL INSERT INTO statements from uploaded spreadsheet files and pasted data.  Great for when you need to ingest and join data sets into a warehouse for adhoc analyses.  
+2/ [Excel to SQL](https://github.com/ryanwaldorf/sqlgenerator/blob/main/src/pages/TableGeneratorFromExcel.js).  Generates a SQL CREATE TABLE and SQL INSERT INTO statements from uploaded spreadsheet files like excel, CSV, and TSV and pasted data.  Great for when you need to ingest and join data sets into a warehouse for adhoc analyses.
 
-3/ [JSON to SQL](https://github.com/ryanwaldorf/sqlgenerator/blob/main/src/pages/TableGeneratorFromJSON.js).  Generates a SQL CREATE TABLE and SQL INSERT INTO statements from uploaded JSON files and pasted JSON.  Great for when you need to ingest and join data sets into a warehouse for adhoc analyses.  
+3/ [JSON to SQL](https://github.com/ryanwaldorf/sqlgenerator/blob/main/src/pages/TableGeneratorFromJSON.js).  Generates SQL CREATE TABLE and SQL INSERT INTO statements from uploaded JSON files and pasted JSON.  Great for when you need to ingest and join data sets into a warehouse for adhoc analyses.  
 
 # How to run this yourself
 
