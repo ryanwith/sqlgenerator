@@ -35,7 +35,7 @@ const Home = () => {
         All operations are performed client-side. No data is sent to the server, ensuring your data remains private and secure.
       </Typography>
       <Typography variant="body1" sx={{ mt: 2 }}>
-        This site is open source. You can clone the <MuiLink href="https://github.com/rywaldor/sqlgenerator" target="_blank" rel="noopener noreferrer">
+        This site is open source. You can clone the <MuiLink href="https://github.com/ryanwaldorf/sqlgenerator" target="_blank" rel="noopener noreferrer">
           repository on GitHub
         </MuiLink> and host it on your own servers for added security.
         Just please provide attribution if you do.
