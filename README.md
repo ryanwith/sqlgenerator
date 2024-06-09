@@ -10,7 +10,7 @@ Additionally the initial structure was developed using [plandex](https://plandex
 
 This currently provides three options:
 
-1/ [In-Clause Generator](https://github.com/ryanwaldorf/sqlgenerator/blob/main/src/pages/InClauseGenerator.js).  Generates a SQL in-clause from spreadsheet data--just copy and paste your date into the text input.  Great when you have a CSV containing identifiers like customer or order IDs that you want to filter an existing table on.  
+1/ [In-Clause Generator](https://github.com/ryanwaldorf/sqlgenerator/blob/main/src/pages/InClauseGenerator.js).  Generates a SQL in-clause from pasted spreadsheet data.  Great when you have a CSV containing identifiers like customer or order IDs that you want to filter an existing table on.  
 
 2/ [Excel to SQL](https://github.com/ryanwaldorf/sqlgenerator/blob/main/src/pages/TableGeneratorFromExcel.js).  Generates a SQL CREATE TABLE and SQL INSERT INTO statements from uploaded spreadsheet files and pasted data.  Great for when you need to ingest and join data sets into a warehouse for adhoc analyses.  
 
