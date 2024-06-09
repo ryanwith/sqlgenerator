@@ -13,7 +13,7 @@ import { Container, Typography, Grid, Box, InputLabel, Select, FormControl, Menu
 // import from sqlGenerator
 const { generateCreateAndInsertStatements  } = sqlGenerator;
 
-function TableGenerator() {
+function TableGeneratorFromExcel() {
   const [sql, setSQL] = useState('');
   const [tableType, setTableType] = useState('TEMP');
   const [tableName, setTableName] = useState('table_name');
@@ -197,6 +197,6 @@ return (
 );
 
 }
-export default TableGenerator;
+export default TableGeneratorFromExcel;
 
 
