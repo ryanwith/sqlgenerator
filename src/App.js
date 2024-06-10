@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Route, Routes} from 'react-router-dom';
+import { HashRouter as Router, Route, Routes, Navigate} from 'react-router-dom';
 import InClauseGenerator from './pages/InClauseGenerator';
 import TableGeneratorFromExcel from './pages/TableGeneratorFromExcel';
 import TableGeneratorFromJSON from './pages/TableGeneratorFromJSON';
@@ -18,6 +18,9 @@ function App() {
           <Route path="/sql-in-clause-generator" element={<InClauseGenerator />} />
           <Route path="/sql-converter/excel-to-sql" element={<TableGeneratorFromExcel />} />
           <Route path="/sql-converter/json-to-sql" element={<TableGeneratorFromJSON />} />
+          <Route path="/in-clause-generator" element={<Navigate to="/sql-in-clause-generator" />} />
+          {/* Add a catch-all redirect */}
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
     </Router>
