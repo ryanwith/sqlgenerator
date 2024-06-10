@@ -31,7 +31,6 @@ function InClauseGenerator() {
     // Create a worksheet from the rows
     const sheet = XLSX.utils.aoa_to_sheet(rows);
     const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-    console.log(jsonData)
     setParsedData(jsonData);
     setUnformattedClauses(generateInClausesFromPaste(jsonData, batchSize));
     setInClause(generateFullInClause(unformattedClauses, notIn, columnName));
@@ -72,7 +71,7 @@ function InClauseGenerator() {
 
   return (
     <Container>
-      <Typography variant="h5">In-Clause Generator</Typography>
+      <Typography variant="h5">SQL In-Clause Generator</Typography>
       <Box>
         <Tabs 
             mb={2} 
