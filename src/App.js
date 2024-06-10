@@ -15,7 +15,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/in-clause-generator" element={<InClauseGenerator />} />
+          <Route path="/sql-in-clause-generator" element={<InClauseGenerator />} />
           <Route path="/sql-converter/excel-to-sql" element={<TableGeneratorFromExcel />} />
           <Route path="/sql-converter/json-to-sql" element={<TableGeneratorFromJSON />} />
         </Routes>

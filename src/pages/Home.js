@@ -14,7 +14,7 @@ const Home = () => {
       <List>
         <ListItem>
           <Typography variant="body1">
-            <strong><MuiLink component={RouterLink} to='/in-clause-generator'>SQL IN Clause Generator</MuiLink>: </strong>
+            <strong><MuiLink component={RouterLink} to='/sql-in-clause-generator'>SQL IN Clause Generator</MuiLink>: </strong>
             Generates a SQL in-clause from pasted data.  Great when you have a CSV containing identifiers like customer or order IDs that you want to filter an existing table on.  
           </Typography>
         </ListItem>
