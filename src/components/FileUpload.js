@@ -48,7 +48,8 @@ function FileUpload({ fileType, onData }) {
     };
     
     if (fileType === 'SPREADSHEET') {
-      reader.readAsBinaryString(file);
+      reader.readAsArrayBuffer(file);
+      console.log(reader)
     } else if (fileType === 'JSON') {
       reader.readAsText(file);
     }
