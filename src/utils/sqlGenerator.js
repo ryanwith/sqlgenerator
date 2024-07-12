@@ -63,12 +63,30 @@ const generateInsertIntoClause = (tableName) => {
 
 const generateInsertLine = (insertIntoClause, includedFieldIndexes, row, totalRows, rowNumber, batchSize) => {
   const beginningOfStatement = isFirstLineOfStatement(rowNumber, batchSize) ? insertIntoClause : '';
-  const values = row
-    // filter out rows that are not in the includedFieldIndexes and therefore include != true
-    .filter((value, index) => includedFieldIndexes.includes(index) )
-    .map((value) => `'${value}'`).join(', ');
+  console.log(includedFieldIndexes.length);
+  
+  let values = [];
+  for (let index = 0; index < row.length; index++) {
+
+    // this mechanism ensures empty array values at the beginning of the string are included
+    if (includedFieldIndexes.includes(index)) {
+      // 
+      const value = row[index] === undefined ? '' : row[index];
+      values.push(`'${value}'`);
+    }
+  }
+
+  // ensures trailing empty values are included
+  if(values.length !== includedFieldIndexes.length){
+    for(let index = 0; index < includedFieldIndexes.length - values.length; index++){
+      values.push("''");
+    }
+  }
+
   const endOfStatement = isEndOfStatement(totalRows, rowNumber, batchSize) ? ";" : ",";
-  return beginningOfStatement + "\n\t(" + values + ")" + endOfStatement;
+  const valuesString = values.join(', ');
+  console.log(valuesString);
+  return beginningOfStatement + "\n\t(" + valuesString + ")" + endOfStatement;
 }
 
 const isEndOfStatement = (totalRows, rowNumber, batchSize) => {
