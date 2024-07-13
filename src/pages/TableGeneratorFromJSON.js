@@ -81,7 +81,7 @@ return (
   <Container>
     <Grid container>
       <Grid sm={10} xs={12}>
-        <Typography variant="h5">JSON to SQL Converter</Typography>
+        <Typography variant="h1">JSON to SQL Converter</Typography>
       </Grid>
     </Grid>
     <Grid container >

@@ -82,11 +82,11 @@ return (
   <Container>
     <Grid container>
       <Grid sm={10} xs={12}>
-        <Typography variant="h5">Excel to SQL Converter</Typography>
+        <Typography variant="h1">Excel to SQL Converter</Typography>
       </Grid>
     </Grid>
     <Typography variant='body1'>
-        Easily convert and transform your excel, CSVs, TSVs, and other data files to SQL.
+        Easily convert your excel, CSVs, TSVs, and other data files to SQL.
         Allows you to easily extract, transform, and load small amounts of data between data warehouses.
         Use the options below to modify the SQL.
     </Typography>

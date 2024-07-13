@@ -5,7 +5,7 @@ import { Link as RouterLink } from 'react-router-dom';
 const Home = () => {
   return (
     <Container maxWidth="md" sx={{ mt: 4 }}>
-      <Typography variant="h3" gutterBottom>
+      <Typography variant="h1" gutterBottom>
         Welcome to SQL Generator
       </Typography>
       <Typography variant="h6" gutterBottom>
