@@ -7,3 +7,15 @@
 
   [plugins.inputs]
     gzip_level = 6 # optional, default is 6, range is 1-9
+    
+[[redirects]]
+  from = "/#/*"
+  to = "/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/index.html#/*"
+  to = "/:splat"
+  status = 301
+  force = true
