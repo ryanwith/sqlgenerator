@@ -1,0 +1,9 @@
+[build]
+  publish = "build"
+  command = "npm run build"
+
+[[plugins]]
+  package = "@netlify/plugin-gzip"
+
+  [plugins.inputs]
+    gzip_level = 6 # optional, default is 6, range is 1-9
