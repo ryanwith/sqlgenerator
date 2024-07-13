@@ -19,12 +19,12 @@ function Navbar() {
                     <Toolbar style={{ paddingLeft: 0 }}>
                         <Box sx={{ flexGrow: 1 }}>
                             <Button color="inherit" component={RouterLink} to="/">Home</Button>
-                            <Button color="inherit" component={RouterLink} to="/sql-in-clause-generator">In-Clause Generator</Button>
                             <Button color="inherit" onClick={handleClick}>SQL Table Generator</Button>
                             <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
                                 <MenuItem onClick={handleClose} component={RouterLink} to="/sql-converter/excel-to-sql">Excel to SQL</MenuItem>
                                 <MenuItem onClick={handleClose} component={RouterLink} to="/sql-converter/json-to-sql">JSON to SQL</MenuItem>
                             </Menu>
+                            <Button color="inherit" component={RouterLink} to="/sql-in-clause-generator">In-Clause Generator</Button>
                         </Box>
                     </Toolbar>
                 </Container>
