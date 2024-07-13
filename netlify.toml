@@ -13,3 +13,18 @@
   to = "/:splat"
   status = 301
   force = true
+
+[[redirects]]
+  from = "/sql-converter/#/excel-to-sql"
+  to = "/sql-converter/excel-to-sql"
+  status = 301
+
+[[redirects]]
+  from = "/sql-converter/#/json-to-sql"
+  to = "/sql-converter/excel-to-sql"
+  status = 200
+
+[[redirects]]
+  from = "/#/sql-in-clause-generator"
+  to = "/sql-in-clause-generator"
+  status = 200
