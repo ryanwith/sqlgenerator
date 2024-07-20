@@ -27,3 +27,5 @@ App_old.js
 App_saved.js
 # Local Netlify folder
 .netlify
+
+.env

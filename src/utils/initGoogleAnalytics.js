@@ -2,8 +2,8 @@
 
 export const initGoogleAnalytics = () => {
   // Check if the script is already present and that the GTAG variable is defined
-  if (!window.gtag && process.env.GOOGLE_TAG_ID) {
-    const gtag_id = process.env.GOOGLE_TAG_ID;
+  if (!window.gtag && process.env.REACT_APP_GOOGLE_TAG_ID) {
+    const gtag_id = process.env.REACT_APP_GOOGLE_TAG_ID;
     // Create the script element
     const script = document.createElement('script');
     script.src = `https://www.googletagmanager.com/gtag/js?id=${gtag_id}`
