@@ -1,6 +1,5 @@
 import React from 'react';
-import { Container, Typography, List, ListItem, Grid,  Link as MuiLink } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { Container, Typography, } from '@mui/material';
 
 const Home = () => {
   return (
