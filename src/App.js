@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles'; // Import ThemeProvider from Material-UI
 import theme from './styles/theme.js';
@@ -8,11 +8,13 @@ import TableGeneratorFromJSON from './pages/TableGeneratorFromJSON';
 import TableGeneratorFromCSV from './pages/TableGeneratorFromCSV';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
-
-
-import './App.css';
+import { initGoogleAnalytics } from './utils/initGoogleAnalytics'; // Import initGA
 
 function App() {
+  useEffect(() => {
+    initGoogleAnalytics(); // Initialize Google Analytics
+  }, []);
+
   return (
     <ThemeProvider theme={theme}> {/* Wrap the application with ThemeProvider */}
       <Router>
