@@ -13,7 +13,7 @@ import { Container, Typography, Grid, Box, InputLabel, Select, FormControl, Menu
 // import from sqlGenerator
 const { generateCreateAndInsertStatements  } = sqlGenerator;
 
-function TableGeneratorFromExcel() {
+function TableGeneratorFromCSV() {
   const [sql, setSQL] = useState('');
   const [tableType, setTableType] = useState('TEMP');
   const [tableName, setTableName] = useState('table_name');
@@ -82,11 +82,11 @@ return (
   <Container>
     <Grid container>
       <Grid sm={10} xs={12}>
-        <Typography variant="h1">Excel to SQL Converter</Typography>
+        <Typography variant="h1">CSV to SQL Converter</Typography>
       </Grid>
     </Grid>
     <Typography variant='body1' style={{"margin-top": '4px'}}>
-        Upload an excel file or paste your spreadsheet data into this tool.  This site generate SQL CREATE TABLE and INSERT INTO TABLE statements that you can copy to your clipboard or download as a file.  Run the SQL statements in your warehouse and start querying your data.
+        Upload a CSV or paste the data into this tool.  This will generate SQL CREATE TABLE and INSERT INTO TABLE statements that you can copy to your clipboard or download as a file.  Run the SQL statements in your warehouse and start querying your data.
     </Typography>
     <Box mt={2}  > 
     <Grid container>
@@ -198,6 +198,6 @@ return (
 );
 
 }
-export default TableGeneratorFromExcel;
+export default TableGeneratorFromCSV;
 
 

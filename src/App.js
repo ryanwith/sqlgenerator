@@ -5,6 +5,7 @@ import theme from './styles/theme.js';
 import InClauseGenerator from './pages/InClauseGenerator';
 import TableGeneratorFromExcel from './pages/TableGeneratorFromExcel';
 import TableGeneratorFromJSON from './pages/TableGeneratorFromJSON';
+import TableGeneratorFromCSV from './pages/TableGeneratorFromCSV';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
 
@@ -21,6 +22,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/sql-in-clause-generator" element={<InClauseGenerator />} />
             <Route path="/sql-converter/excel-to-sql" element={<TableGeneratorFromExcel />} />
+            <Route path="/sql-converter/csv-to-sql" element={<TableGeneratorFromCSV />} />
             <Route path="/sql-converter/json-to-sql" element={<TableGeneratorFromJSON />} />
             <Route path="/in-clause-generator" element={<Navigate to="/sql-in-clause-generator" />} />
             {/* Add a catch-all redirect */}

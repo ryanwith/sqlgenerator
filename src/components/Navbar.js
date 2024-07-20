@@ -22,6 +22,7 @@ function Navbar() {
                             <Button color="inherit" onClick={handleClick}>SQL Table Generator</Button>
                             <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
                                 <MenuItem onClick={handleClose} component={RouterLink} to="/sql-converter/excel-to-sql">Excel to SQL</MenuItem>
+                                <MenuItem onClick={handleClose} component={RouterLink} to="/sql-converter/csv-to-sql">CSV to SQL</MenuItem>
                                 <MenuItem onClick={handleClose} component={RouterLink} to="/sql-converter/json-to-sql">JSON to SQL</MenuItem>
                             </Menu>
                             <Button color="inherit" component={RouterLink} to="/sql-in-clause-generator">In-Clause Generator</Button>

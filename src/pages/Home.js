@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Typography, List, ListItem, Link as MuiLink } from '@mui/material';
+import { Container, Typography, List, ListItem, Grid,  Link as MuiLink } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
 const Home = () => {
@@ -8,39 +8,23 @@ const Home = () => {
       <Typography variant="h1" gutterBottom>
         Welcome to SQL Generator
       </Typography>
-      <Typography variant="h6" gutterBottom>
-        This site currently provides three tools to help you generate SQL queries quickly and efficiently:
+      <Typography variant="body1" gutterBottom>
+        This site provides tools to generate SQL statements from your local files so you can easily run ad hoc analytics on your data.  It currently provides two types of tools:
       </Typography>
-      <List>
-        <ListItem>
-          <Typography variant="body1">
-            <strong><MuiLink component={RouterLink} to='/sql-in-clause-generator'>SQL IN Clause Generator</MuiLink>: </strong>
-            Generates a SQL in-clause from pasted data.  Great when you have a CSV containing identifiers like customer or order IDs that you want to filter an existing table on.  
-          </Typography>
-        </ListItem>
-        <ListItem>
-          <Typography variant="body1">
-            <strong><MuiLink component={RouterLink} to='/sql-converter/excel-to-sql'>Excel to SQL Converter</MuiLink>: </strong> 
-            Generates a SQL CREATE TABLE and SQL INSERT INTO statements from uploaded spreadsheet files like excel, CSV, and TSV and pasted data.  Great for when you need to ingest and join data sets into a warehouse for adhoc analyses.
-          </Typography>
-        </ListItem>
-        <ListItem>
-          <Typography variant="body1">
-            <strong><MuiLink component={RouterLink} to='/sql-converter/json-to-sql'>JSON to SQL Converter</MuiLink>: </strong> 
-            Generates a SQL CREATE TABLE and SQL INSERT INTO statements from uploaded JSON files and pasted JSON.  Great for when you need to ingest and join data sets into a warehouse for adhoc analyses.
-          </Typography>
-        </ListItem>
-      </List>
+      <Typography variant="body1" sx={{pl: 2}}>
+        <ul>
+          <li style={{'margin-top': "8px", "margin-bottom":"8px"}}>
+            <strong>SQL Table Generators</strong> that convert your data into SQL CREATE TABLE and INSERT INTO TABLE statements. 
+            Works for spreadsheet files (CSV, TSV, and excel), JSON files, and pasted tabular data.
+          </li>
+          <li style={{'margin-top': "8px", "margin-bottom":"8px"}}>
+            <strong>SQL In-Clause Generator</strong> converts your data into WHERE or WHERE NOT statements so you can easily filter the data sets already in your warehouse.
+          </li>
+        </ul>
+      </Typography>
       <Typography variant="body1">
-        All operations are performed client-side. No data is sent to the server, ensuring your data remains private and secure.
-      </Typography>
-      <Typography variant="body1" sx={{ mt: 2 }}>
-        This site is open source. You can clone the <MuiLink href="https://github.com/ryanwaldorf/sqlgenerator" target="_blank" rel="noopener noreferrer">
-          repository on GitHub
-        </MuiLink> and host it on your own servers for added security.
-        Just please provide attribution if you do.
-      </Typography>
-      <Typography variant="body1" sx={{ mt: 2 }}>
+        All operations are performed client-side so your data never leaves your computer.  Additionally, this is open source so feel free to clone the&nbsp;
+        <a href='https://github.com/ryanwaldorf/sqlgenerator'>GitHub repository</a> and host it yourself.
       </Typography>
     </Container>
   );
