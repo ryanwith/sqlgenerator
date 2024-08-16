@@ -59,9 +59,9 @@ const generateInsertStatements = (data, fields, tableName, batchSize) => {
   return insertStatements.join('');
 };
 
-const generateAlterStatements = (tableData) => {
-  return null
-}
+// const generateAlterStatements = (tableData) => {
+//   return null
+// }
 
 const generateInsertIntoClause = (tableName) => {
   return `\n\nINSERT INTO "${tableName}" VALUES`
