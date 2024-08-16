@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
 import FileUpload from '../components/FileUpload';
+import { Link } from "react-router-dom";
 // import SQLDownload from './components/SQLDownload';
 import SQLDisplay from '../components/SQLDisplay';
 import CopyToClipboard from '../components/CopyToClipboard';
@@ -192,6 +193,7 @@ return (
     </Grid>
     <Typography variant='body1' sx={{mt: '16px'}}>
       Note: All operations are performed client-side. No data is sent to a server so your data remains private and secure.
+      Checkout the <Link to="https://github.com/ryanwith/sqlgenerator">github repository</Link> if you want to verify or contribute.
     </Typography>
 
   </Container>
