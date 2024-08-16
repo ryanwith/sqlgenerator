@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import '../App.css';
 import FileUpload from '../components/FileUpload';
-import Notice from '../components/Notice';
+// import Notice from '../components/Notice';
 // import SQLDownload from './components/SQLDownload';
 import SQLDisplay from '../components/SQLDisplay';
 import CopyToClipboard from '../components/CopyToClipboard';
