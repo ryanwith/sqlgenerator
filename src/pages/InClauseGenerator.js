@@ -72,6 +72,9 @@ function InClauseGenerator() {
   return (
     <Container>
       <Typography variant="h1">SQL In-Clause Generator</Typography>
+      <Typography variant='body1' style={{"margin-top": '4px'}}>
+        Copy and paste a list of values you want to include in a SQL in-clause from excel.  This will generate an in-clause allowing to easily include or exclue the data.
+    </Typography>
       <Box>
         <Tabs 
             mb={2} 
