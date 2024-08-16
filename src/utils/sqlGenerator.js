@@ -48,6 +48,8 @@ const generateCreateTableSQL = (fields, tableName, tableType) => {
 
 const generateInsertStatements = (data, fields, tableName, batchSize) => {
   const rows = data.slice(1);
+  console.log('rows')
+  console.log(rows)
   // removes fields where index != true
   const includedFieldIndexes = fields.map((field, index) => field.include === true ? index : null).filter((index) => index !== null);
   const insertIntoClause = generateInsertIntoClause(tableName);
@@ -57,13 +59,17 @@ const generateInsertStatements = (data, fields, tableName, batchSize) => {
   return insertStatements.join('');
 };
 
+const generateAlterStatements = (tableData) => {
+  return null
+}
+
 const generateInsertIntoClause = (tableName) => {
   return `\n\nINSERT INTO "${tableName}" VALUES`
 }
 
 const generateInsertLine = (insertIntoClause, includedFieldIndexes, row, totalRows, rowNumber, batchSize) => {
+
   const beginningOfStatement = isFirstLineOfStatement(rowNumber, batchSize) ? insertIntoClause : '';
-  console.log(includedFieldIndexes.length);
   
   let values = [];
   for (let index = 0; index < row.length; index++) {

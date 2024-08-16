@@ -6,6 +6,7 @@ import InClauseGenerator from './pages/InClauseGenerator';
 import TableGeneratorFromExcel from './pages/TableGeneratorFromExcel';
 import TableGeneratorFromJSON from './pages/TableGeneratorFromJSON';
 import TableGeneratorFromCSV from './pages/TableGeneratorFromCSV';
+import AlterStatementsGenerator from './pages/statements/AlterStatementsGenerator';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import { initGoogleAnalytics } from './utils/initGoogleAnalytics'; // Import initGA
@@ -28,6 +29,7 @@ function App() {
             <Route path="/sql-converter/csv-to-sql" element={<TableGeneratorFromCSV />} />
             <Route path="/sql-converter/json-to-sql" element={<TableGeneratorFromJSON />} />
             <Route path="/in-clause-generator" element={<Navigate to="/sql-in-clause-generator" />} />
+            <Route path="/sql-statement-generator/alter-statements" element={<AlterStatementsGenerator />} />
             {/* Add a catch-all redirect */}
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
