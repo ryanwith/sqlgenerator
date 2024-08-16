@@ -20,7 +20,7 @@ function App() {
     <ThemeProvider theme={theme}> {/* Wrap the application with ThemeProvider */}
       <Router>
         <div>
-          ${process.env.REACT_APP_GOOGLE_ANALTYICS_TAG}
+          {process.env.REACT_APP_GOOGLE_ANALTYICS_TAG}
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
